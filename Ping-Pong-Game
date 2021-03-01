@@ -1,3 +1,77 @@
+# Ping Pong Game
+
+# Importing the useful libraries
+import pygame as pg
+import math
+import random
+from pygame import mixer
+
+# Initializing pygame
+pg.init()
+
+# Creating game window
+screen = pg.display.set_mode((820, 620))
+
+# Loading background
+background = pg.image.load('back.png')
+
+# Setting up title
+pg.display.set_caption('Ping-Pong Game')
+icon = pg.image.load('icon.png')
+pg.display.set_icon(icon)
+
+# Background Music
+mixer.music.load('background.mp3')
+mixer.music.play(-1)
+
+# Creating two players to play
+p1_Img = pg.image.load('player1.png')
+p1_X = 20
+p1_Y = 294
+p1_changeY = 0
+
+p2_Img = pg.image.load('player2.png')
+p2_X = 736
+p2_Y = 294
+p2_changeY = 0
+
+# Score Showing
+score_1 = 0
+score_2 = 0
+score_font = pg.font.Font('freesansbold.ttf', 32)
+
+score_X = 20
+score_Y = 20
+
+# Showing hints
+hints = pg.font.Font('freesansbold.ttf', 24)
+hint_X = 56
+hint_Y = 550
+
+# Winner
+winner = pg.font.Font('freesansbold.ttf', 72)
+winner_X = 100
+winner_Y = 300
+
+# Creating a ball to play
+ball_Img = pg.image.load('ball.png')
+ball_X = 384
+ball_Y = 294
+ball_changeX = -1
+ball_changeY = 0
+
+
+def player1(x, y):
+    screen.blit(p1_Img, (x, y))
+
+
+def player2(x, y):
+    screen.blit(p2_Img, (x, y))
+
+
+def ball(x, y):
+    screen.blit(ball_Img, (x, y))
+
 def show_score(x, y):
     score_value = score_font.render("Score A : " + str(score_1) + "  Score B : " + str(score_2), True, (255, 255, 255))
     screen.blit(score_value, (x, y))
