@@ -139,3 +139,60 @@ while running:
             if event.key == pg.K_w or event.key == pg.K_s or event.key == pg.K_UP or event.key == pg.K_DOWN:
                 p1_changeY = 0
                 p2_changeY = 0
+                
+# Positioning and moving the players
+    p1_Y += p1_changeY
+    if p1_Y <= 60:
+        p1_Y = 60
+    elif p1_Y >= 500:
+        p1_Y = 500
+    player1(p1_X, p1_Y)
+
+    p2_Y += p2_changeY
+    if p2_Y <= 60:
+        p2_Y = 60
+    elif p2_Y >= 500:
+        p2_Y = 500
+    player2(p2_X, p2_Y)
+
+    # Positioning the ball
+    ball_X += ball_changeX
+    ball_Y += ball_changeY
+    ball(ball_X, ball_Y)
+
+    # Counting the score
+    if ball_X <= 10:
+        ball_X = 384
+        ball_Y = 294
+        score_2 += 1
+    elif ball_X >= 810:
+        ball_X = 384
+        ball_Y = 294
+        score_1 += 1
+    elif ball_Y <= 80:
+        ball_changeY *= -1
+    elif ball_Y >= 520:
+        ball_changeY *= -1
+
+    # Collision
+    collision1 = iscollision1(ball_X, ball_Y, p1_X, p1_Y)
+    if collision1:
+        hit = mixer.Sound('hit.wav')
+        hit.play()
+        ball_changeX = 3
+        ball_changeY = random.randint(-1, 1)
+
+    collision2 = iscollision2(ball_X, ball_Y, p2_X, p2_Y)
+    if collision2:
+        hit = mixer.Sound('hit.wav')
+        hit.play()
+        ball_changeX = -3
+        ball_changeY = random.randint(-1, 1)
+
+    # Showing the score
+    show_score(score_X, score_Y)
+    show_hints(hint_X, hint_Y)
+    show_winner(winner_X, winner_Y)
+
+    # Updating the screen
+    pg.display.update()
